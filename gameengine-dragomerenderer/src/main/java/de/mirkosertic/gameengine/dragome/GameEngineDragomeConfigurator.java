@@ -10,17 +10,17 @@ import com.dragome.commons.DragomeConfiguratorImplementor;
 import com.dragome.commons.compiler.CompilerMode;
 import com.dragome.web.config.DomHandlerApplicationConfigurator;
 
-@DragomeConfiguratorImplementor
+@DragomeConfiguratorImplementor(priority= 100)
 public class GameEngineDragomeConfigurator extends DomHandlerApplicationConfigurator {
 
     public GameEngineDragomeConfigurator() {
     	   super(Arrays.asList(MouseEvent.class, KeyboardEvent.class));
-        System.setProperty("dragome-compile-mode", CompilerMode.Production.toString());
+//        System.setProperty("dragome-compile-mode", CompilerMode.Production.toString());
     }
 
     @Override
-    public boolean filterClassPath(String aClassPathEntry) {
-		boolean include= false;
+    public boolean filterClassPath(String aClassPathEntry) { 
+		boolean include= super.filterClassPath(aClassPathEntry);
 
 		include|= aClassPathEntry.contains("gameengine-0.5");
 		include|= aClassPathEntry.contains("gameengine-lua");
@@ -41,7 +41,7 @@ public class GameEngineDragomeConfigurator extends DomHandlerApplicationConfigur
 
     public boolean isRemoveUnusedCode()
     {
-        return true;
+        return false;
     }
     
     public URL getAdditionalCodeKeepConfigFile() {
